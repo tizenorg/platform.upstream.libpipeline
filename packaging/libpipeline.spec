@@ -8,6 +8,7 @@ Summary:        A pipeline manipulation library
 Url:            http://www.nongnu.org/libpipeline/
 Group:          System/Libraries
 Source:         %{name}-%{version}.tar.gz
+Source1001: 	libpipeline.manifest
 
 %description
 libpipeline is a C library for setting up and running pipelines of
@@ -31,6 +32,7 @@ such as fork(2) and execve(2).
 
 %prep
 %setup -q
+cp %{SOURCE1001} .
 
 %build
 %configure			\
@@ -49,11 +51,13 @@ make %{?_smp_mflags}
 %postun -p /sbin/ldconfig
 
 %files
+%manifest %{name}.manifest
 %defattr(-,root,root,0755)
 %license  COPYING
 %{_libdir}/libpipeline.so.*
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-,root,root,0755)
 %{_libdir}/libpipeline.so
 %{_libdir}/pkgconfig/libpipeline.pc
